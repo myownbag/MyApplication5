@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/sernum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入表具序号"
+        android:inputType="number"
+        />
+    <Button
+        android:id="@+id/getcurrentbut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sernum"
+        android:text="查    询"
+        android:background="@drawable/btn_guide_selector"
+        android:textColor="@drawable/btn_guide_text_selector"
+        android:textStyle="bold"
+        />
+    <ListView
+        android:id="@+id/currentshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/getcurrentbut"
+      >
+    </ListView>
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/comm_log_list_item_devserial"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        />
+    <TextView
+        android:id="@+id/comm_log_list_item_datainfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        />
+    <TextView
+        android:id="@+id/comm_log_list_item_datatime"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="30dp" />
+</LinearLayout>

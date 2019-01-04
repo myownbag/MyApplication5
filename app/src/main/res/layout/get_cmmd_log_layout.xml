@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <EditText
+        android:id="@+id/commdlog_input_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="请输入设备序列号"
+    />
+    <Button
+        android:id="@+id/commlog_search_but"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="查     询"
+        android:background="@drawable/btn_guide_selector"
+        android:textColor="@drawable/btn_guide_text_selector"
+        android:textStyle="bold"
+        />
+    <ListView
+        android:id="@+id/commlog_list_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"/>
+</LinearLayout>
