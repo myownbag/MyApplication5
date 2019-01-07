@@ -31,4 +31,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':vpindicatorlibrary')
     compile 'org.xutils:xutils:3.5.0'
+    compile 'com.contrarywind:Android-PickerView:4.1.6'
 }
