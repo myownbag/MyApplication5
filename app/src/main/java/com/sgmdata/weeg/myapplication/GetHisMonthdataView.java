@@ -167,7 +167,7 @@ public class GetHisMonthdataView extends BasePager {
             TextView detials = view.findViewById(R.id.get_his_mom_data_item_details);
             label.setText(mydata.get(0).Mondata.get(i).get("label"));
             detials.setText(mydata.get(0).Mondata.get(i).get("detail"));
-            Log.d("zl","on adpater" + mydata.get(0).Mondata.get(i).get("label")+"--"+mydata.get(0).Mondata.get(i).get("detail"));
+//            Log.d("zl","on adpater" + mydata.get(0).Mondata.get(i).get("label")+"--"+mydata.get(0).Mondata.get(i).get("detail"));
             return view;
         }
     }
