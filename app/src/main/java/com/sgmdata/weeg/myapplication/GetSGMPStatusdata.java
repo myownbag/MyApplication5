@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sgmdata.weeg.myapplication.DataTypeCollect.CommParameterdataBean;
+import com.sgmdata.weeg.myapplication.DataTypeCollect.CommSGMPStatusDataBean;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -30,7 +31,7 @@ public class GetSGMPStatusdata extends BasePager {
     public Button mBut;
     public EditText mserial;
     public ListView mlistinfo;
-    public ArrayList<CommParameterdataBean> mydata;
+    public ArrayList<CommSGMPStatusDataBean> mydata;
     public listviewadpater1 myadpater;
     public GetSGMPStatusdata(Activity activity) {
         super(activity);
@@ -93,26 +94,19 @@ public class GetSGMPStatusdata extends BasePager {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             if(view==null)
-                view= View.inflate(mActivity,R.layout.comm_control_item_layout,null);
-            TextView devserial= view.findViewById(R.id.comm_control_itemdata_devserial);
-            TextView chunnelserial=view.findViewById(R.id.comm_control_itemdata_chunnelserial);
-            TextView cmdpacket = view.findViewById(R.id.comm_control_itemdata_cmdpacket);
-            TextView cmdnote = view.findViewById(R.id.comm_control_itemdata_cmdnote);
-            TextView sendstate = view.findViewById(R.id.comm_control_itemdata_sendstate);
-            TextView responestate = view.findViewById(R.id.comm_control_itemdata_responestate);
-            TextView cmdtime =view.findViewById(R.id.comm_control_itemdata_cmdtime);
-            TextView sendtime = view.findViewById(R.id.comm_control_itemdata_sendtime);
-            TextView responetime = view.findViewById(R.id.comm_control_itemdata_responetime);
+                view= View.inflate(mActivity,R.layout.get_sgmp_status_data_item_layout,null);
+            TextView classid= view.findViewById(R.id.comm_sgmp_status_data_classid);
+            TextView devserial=view.findViewById(R.id.comm_sgmp_status_data_devserial);
+            TextView chunnelserial = view.findViewById(R.id.comm_sgmp_status_data_chunnelserial);
+            TextView alarmnote = view.findViewById(R.id.comm_sgmp_status_data_alarmnote );
+            TextView alarmtime = view.findViewById(R.id.comm_sgmp_status_data_alarmtime);
 
+
+            classid.setText(mydata.get(i).classid);
             devserial.setText(mydata.get(i).devserial);
             chunnelserial.setText(mydata.get(i).chunnelserial);
-            cmdpacket.setText(mydata.get(i).parampacket);
-            cmdnote.setText(mydata.get(i).paramnote);
-            sendstate.setText(mydata.get(i).sendstate);
-            responestate.setText(mydata.get(i).responestate);
-            cmdtime.setText(mydata.get(i).paramtime);
-            sendtime.setText(mydata.get(i).sendtime);
-            responetime.setText(mydata.get(i).responetime);
+            alarmnote.setText(mydata.get(i).alarmnote);
+            alarmtime.setText(mydata.get(i).alarmtime);
             return view;
         }
     }
@@ -125,7 +119,7 @@ public class GetSGMPStatusdata extends BasePager {
             Toast.makeText(mActivity,"请输入表具号",Toast.LENGTH_SHORT).show();
             return;
         }
-        String url = "http://112.21.191.16:8000/SGMPServices/SgmpInfoInterface.asmx/GetSGMPParamCmdData?userid=root&userpasswd=weeg@20080725&sgmpserial=%s";
+        String url = "http://112.21.191.16:8000/SGMPServices/SgmpInfoInterface.asmx/GetSGMPStatusData?userid=root&userpasswd=weeg@20080725&sgmpserial=%s";
         url= String.format(url,testert);
         Log.d("zl","URL"+url);
         RequestParams params = new RequestParams(url);
@@ -162,7 +156,7 @@ public class GetSGMPStatusdata extends BasePager {
 
     private void xmldecodedemo(String string)
     {
-        CommParameterdataBean actimeCommData=null;
+        CommSGMPStatusDataBean actimeCommData=null;
         int event=-1;
         String elementName=null;
         XmlPullParser parser = Xml.newPullParser();
@@ -182,14 +176,14 @@ public class GetSGMPStatusdata extends BasePager {
                     break;
                 case XmlPullParser.START_TAG:
                     elementName=parser.getName();
-                    if("sgmp_paramcmd".equals(elementName))
+                    if("sgmp_status_data".equals(elementName))
                     {
-                        actimeCommData=new CommParameterdataBean();
+                        actimeCommData=new CommSGMPStatusDataBean();
                     }
                     break;
                 case XmlPullParser.END_TAG:
                     elementName=parser.getName();
-                    if("sgmp_paramcmd".equals(elementName))
+                    if("sgmp_status_data".equals(elementName))
                     {
                         mydata.add(actimeCommData);
                     }
@@ -197,7 +191,11 @@ public class GetSGMPStatusdata extends BasePager {
                 case XmlPullParser.TEXT:
                     if(parser.getText().indexOf("\n")==-1)
                     {
-                        if("devserial".equals(elementName))
+                        if("classid".equals(elementName))
+                        {
+                            actimeCommData.classid =parser.getText();
+                        }
+                        else if("devserial".equals(elementName))
                         {
                             actimeCommData.devserial =parser.getText();
                         }
@@ -205,33 +203,13 @@ public class GetSGMPStatusdata extends BasePager {
                         {
                             actimeCommData.chunnelserial =parser.getText();
                         }
-                        else if("parampacket".equals(elementName))
+                        else if("alarmnote".equals(elementName))
                         {
-                            actimeCommData.parampacket =parser.getText();
+                            actimeCommData.alarmnote =parser.getText();
                         }
-                        else if("paramnote".equals(elementName))
+                        else if("alarmtime".equals(elementName))
                         {
-                            actimeCommData.paramnote =parser.getText();
-                        }
-                        else if("sendstate".equals(elementName))
-                        {
-                            actimeCommData.sendstate =parser.getText();
-                        }
-                        else if("responestate".equals(elementName))
-                        {
-                            actimeCommData.responestate =parser.getText();
-                        }
-                        else if("paramtime".equals(elementName))
-                        {
-                            actimeCommData.paramtime =parser.getText();
-                        }
-                        else if("sendtime".equals(elementName))
-                        {
-                            actimeCommData.sendtime =parser.getText();
-                        }
-                        else if("responetime".equals(elementName))
-                        {
-                            actimeCommData.responetime =parser.getText();
+                            actimeCommData.alarmtime =parser.getText();
                         }
                     }
                     break;
