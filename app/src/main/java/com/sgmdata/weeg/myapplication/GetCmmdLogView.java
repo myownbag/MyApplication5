@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sgmdata.weeg.myapplication.DataTypeCollect.CommLogBean;
+import com.sgmdata.weeg.myapplication.utilsview.CustomDialog;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -34,6 +35,8 @@ public class GetCmmdLogView extends BasePager {
     ListView infolist;
     ArrayList<CommLogBean> mydata;
     listviewadpater myadpater;
+    CustomDialog mydlg;
+
     public GetCmmdLogView(Activity activity) {
         super(activity);
         mActivity=activity;
@@ -49,6 +52,14 @@ public class GetCmmdLogView extends BasePager {
         mInputSGMP = view.findViewById(R.id.commdlog_input_edit);
         mBut = view.findViewById(R.id.commlog_search_but);
         infolist = view.findViewById(R.id.commlog_list_info);
+
+        mydlg = CustomDialog.createProgressDialog(mActivity, 60000, new CustomDialog.OnTimeOutListener() {
+            @Override
+            public void onTimeOut(CustomDialog dialog) {
+                dialog.dismiss();
+                Toast.makeText(mActivity,"服务器无响应",Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
 
@@ -118,6 +129,7 @@ public class GetCmmdLogView extends BasePager {
         url= String.format(url,testert);
         RequestParams params = new RequestParams(url);
         params.setHeader("Host","112.21.191.16");
+        mydlg.show();
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -142,7 +154,7 @@ public class GetCmmdLogView extends BasePager {
 
             @Override
             public void onFinished() {
-
+                mydlg.dismiss();
             }
         });
     }
