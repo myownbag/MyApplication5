@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sgmdata.weeg.myapplication.DataTypeCollect.CommParameterdataBean;
 import com.sgmdata.weeg.myapplication.DataTypeCollect.CommStatusBean;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -30,7 +31,7 @@ public class GetParammeterCmdView extends BasePager {
     public Button mBut;
     public EditText mserial;
     public ListView mlistinfo;
-    public ArrayList<CommStatusBean> mydata;
+    public ArrayList<CommParameterdataBean> mydata;
     public listviewadpater1 myadpater;
     public GetParammeterCmdView(Activity activity) {
         super(activity);
@@ -42,10 +43,10 @@ public class GetParammeterCmdView extends BasePager {
     @Override
     public View initViews() {
         if(view==null)
-            view=View.inflate(mActivity,R.layout.get_cmmd_status_data_layout,null);
-        mserial = view.findViewById(R.id.comm_status_data_sgmpserial);
-        mBut = view.findViewById(R.id.comm_status_data_but);
-        mlistinfo = view.findViewById(R.id.comm_status_data_list);
+            view=View.inflate(mActivity,R.layout.get_cmmd_control_layout,null);
+        mserial = view.findViewById(R.id.comm_control_data_sgmpserial);
+        mBut = view.findViewById(R.id.comm_control_data_but);
+        mlistinfo = view.findViewById(R.id.comm_control_data_list);
         return view;
     }
 
@@ -93,24 +94,26 @@ public class GetParammeterCmdView extends BasePager {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             if(view==null)
-                view= View.inflate(mActivity,R.layout.comm_status_data_log_layout,null);
-            TextView devserial= view.findViewById(R.id.comm_status_data_devserial);
-            TextView chunnelserial=view.findViewById(R.id.comm_status_data_chunnelserial);
-            TextView firsttime = view.findViewById(R.id.comm_status_data_firsttime);
-            TextView recvcount = view.findViewById(R.id.comm_status_data_recvcount);
-            TextView updatetime = view.findViewById(R.id.comm_status_data_updatetime);
-            TextView udpip = view.findViewById(R.id.comm_status_data_udpip);
-            TextView udpport =view.findViewById(R.id.comm_status_data_udpport);
-            TextView devipinfo = view.findViewById(R.id.comm_status_data_devipinfo);
+                view= View.inflate(mActivity,R.layout.comm_control_item_layout,null);
+            TextView devserial= view.findViewById(R.id.comm_control_itemdata_devserial);
+            TextView chunnelserial=view.findViewById(R.id.comm_control_itemdata_chunnelserial);
+            TextView cmdpacket = view.findViewById(R.id.comm_control_itemdata_cmdpacket);
+            TextView cmdnote = view.findViewById(R.id.comm_control_itemdata_cmdnote);
+            TextView sendstate = view.findViewById(R.id.comm_control_itemdata_sendstate);
+            TextView responestate = view.findViewById(R.id.comm_control_itemdata_responestate);
+            TextView cmdtime =view.findViewById(R.id.comm_control_itemdata_cmdtime);
+            TextView sendtime = view.findViewById(R.id.comm_control_itemdata_sendtime);
+            TextView responetime = view.findViewById(R.id.comm_control_itemdata_responetime);
 
             devserial.setText(mydata.get(i).devserial);
             chunnelserial.setText(mydata.get(i).chunnelserial);
-            firsttime.setText(mydata.get(i).firsttime);
-            recvcount.setText(mydata.get(i).recvcount);
-            updatetime.setText(mydata.get(i).updatetime);
-            udpip.setText(mydata.get(i).udpip);
-            udpport.setText(mydata.get(i).udpport);
-            devipinfo.setText(mydata.get(i).devipinfo);
+            cmdpacket.setText(mydata.get(i).parampacket);
+            cmdnote.setText(mydata.get(i).paramnote);
+            sendstate.setText(mydata.get(i).sendstate);
+            responestate.setText(mydata.get(i).responestate);
+            cmdtime.setText(mydata.get(i).paramtime);
+            sendtime.setText(mydata.get(i).sendtime);
+            responetime.setText(mydata.get(i).responetime);
             return view;
         }
     }
@@ -123,7 +126,7 @@ public class GetParammeterCmdView extends BasePager {
             Toast.makeText(mActivity,"请输入表具号",Toast.LENGTH_SHORT).show();
             return;
         }
-        String url = "http://112.21.191.16:8000/SGMPServices/SgmpInfoInterface.asmx/GetSGMPCommStatusData?userid=root&userpasswd=weeg@20080725&sgmpserial=%s";
+        String url = "http://112.21.191.16:8000/SGMPServices/SgmpInfoInterface.asmx/GetSGMPParamCmdData?userid=root&userpasswd=weeg@20080725&sgmpserial=%s";
         url= String.format(url,testert);
         Log.d("zl","URL"+url);
         RequestParams params = new RequestParams(url);
@@ -160,7 +163,7 @@ public class GetParammeterCmdView extends BasePager {
 
     private void xmldecodedemo(String string)
     {
-        CommStatusBean actimeCommData=null;
+        CommParameterdataBean actimeCommData=null;
         int event=-1;
         String elementName=null;
         XmlPullParser parser = Xml.newPullParser();
@@ -180,14 +183,14 @@ public class GetParammeterCmdView extends BasePager {
                     break;
                 case XmlPullParser.START_TAG:
                     elementName=parser.getName();
-                    if("sgmp_comm_status".equals(elementName))
+                    if("sgmp_paramcmd".equals(elementName))
                     {
-                        actimeCommData=new CommStatusBean();
+                        actimeCommData=new CommParameterdataBean();
                     }
                     break;
                 case XmlPullParser.END_TAG:
                     elementName=parser.getName();
-                    if("sgmp_comm_status".equals(elementName))
+                    if("sgmp_paramcmd".equals(elementName))
                     {
                         mydata.add(actimeCommData);
                     }
@@ -203,29 +206,33 @@ public class GetParammeterCmdView extends BasePager {
                         {
                             actimeCommData.chunnelserial =parser.getText();
                         }
-                        else if("firsttime".equals(elementName))
+                        else if("parampacket".equals(elementName))
                         {
-                            actimeCommData.firsttime =parser.getText();
+                            actimeCommData.parampacket =parser.getText();
                         }
-                        else if("recvcount".equals(elementName))
+                        else if("paramnote".equals(elementName))
                         {
-                            actimeCommData.recvcount =parser.getText();
+                            actimeCommData.paramnote =parser.getText();
                         }
-                        else if("updatetime".equals(elementName))
+                        else if("sendstate".equals(elementName))
                         {
-                            actimeCommData.updatetime =parser.getText();
+                            actimeCommData.sendstate =parser.getText();
                         }
-                        else if("udpip".equals(elementName))
+                        else if("responestate".equals(elementName))
                         {
-                            actimeCommData.udpip =parser.getText();
+                            actimeCommData.responestate =parser.getText();
                         }
-                        else if("udpport".equals(elementName))
+                        else if("paramtime".equals(elementName))
                         {
-                            actimeCommData.udpport =parser.getText();
+                            actimeCommData.paramtime =parser.getText();
                         }
-                        else if("devipinfo".equals(elementName))
+                        else if("sendtime".equals(elementName))
                         {
-                            actimeCommData.devipinfo =parser.getText();
+                            actimeCommData.sendtime =parser.getText();
+                        }
+                        else if("responetime".equals(elementName))
+                        {
+                            actimeCommData.responetime =parser.getText();
                         }
                     }
                     break;

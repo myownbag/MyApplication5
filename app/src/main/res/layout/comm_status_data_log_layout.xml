@@ -66,7 +66,7 @@
        android:orientation="horizontal"
        >
        <TextView
-           android:id="@+id/comm_second_parameter_id"
+           android:id="@+id/comm_forth_parameter_id"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="接收次数"
@@ -85,6 +85,7 @@
         android:orientation="horizontal"
         >
         <TextView
+            android:id="@+id/comm_fifth_parameter_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="最新上传"
@@ -103,6 +104,7 @@
        android:orientation="horizontal"
        >
        <TextView
+           android:id="@+id/comm_sixth_parameter_id"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="联网信息"
@@ -121,6 +123,7 @@
         android:orientation="horizontal"
         >
         <TextView
+            android:id="@+id/comm_seventh_parameter_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="端口信息"
@@ -139,6 +142,7 @@
      android:orientation="horizontal"
      >
      <TextView
+         android:id="@+id/comm_eighth_parameter_id"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="设备信息"
