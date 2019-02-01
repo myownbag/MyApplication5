@@ -154,25 +154,6 @@
         <attr name="selectedColor"/>
         
         <attr name="android:background"/>
-    </declare-styleable><declare-styleable name="CirclePageIndicator">
-        
-        <attr name="centered"/>
-        
-        <attr format="color" name="fillColor"/>
-        
-        <attr format="color" name="pageColor"/>
-        
-        <attr name="android:orientation"/>
-        
-        <attr format="dimension" name="radius"/>
-        
-        <attr format="boolean" name="snap"/>
-        
-        <attr format="color" name="strokeColor"/>
-        
-        <attr name="strokeWidth"/>
-        
-        <attr name="android:background"/>
     </declare-styleable><declare-styleable name="TitlePageIndicator">
         
         <attr format="dimension" name="clipPadding"/>
@@ -209,6 +190,25 @@
         <attr format="dimension" name="titlePadding"/>
         
         <attr format="dimension" name="topPadding"/>
+        
+        <attr name="android:background"/>
+    </declare-styleable><declare-styleable name="CirclePageIndicator">
+        
+        <attr name="centered"/>
+        
+        <attr format="color" name="fillColor"/>
+        
+        <attr format="color" name="pageColor"/>
+        
+        <attr name="android:orientation"/>
+        
+        <attr format="dimension" name="radius"/>
+        
+        <attr format="boolean" name="snap"/>
+        
+        <attr format="color" name="strokeColor"/>
+        
+        <attr name="strokeWidth"/>
         
         <attr name="android:background"/>
     </declare-styleable></configuration></mergedItems></merger>
